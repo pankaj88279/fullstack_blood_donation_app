@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
-
-mongoose.connect('mongodb://localhost:27017')
+//mongodb+srv://pankaj:pankaj@cluster0.4gb2s.mongodb.net/
+require('dotenv').config();
+mongoose.connect(`mongodb+srv://${process.env.USER_NAME}:${process.env.PASS}@cluster0.4gb2s.mongodb.net/`)
 .then(()=>{
     console.log('Connected to database')
 })
