@@ -16,9 +16,14 @@ let registeruser = new mongoose.Schema({
     password: {
         type: String,
         required: true
+    },
+    role: {
+        type: String,
+        enum : ['admin','enduser'],
+        default: 'admin'
     }
 });
 
-const user = mongoose.model('User', registeruser)
+const user= mongoose.model('User', registeruser)
 
 exports.user = user
