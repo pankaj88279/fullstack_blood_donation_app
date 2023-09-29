@@ -1,28 +1,110 @@
-const {mongoose} = require("../config/db");
+const { mongoose } = require("../config/db");
 
 
 let registeruser = new mongoose.Schema({
-    firstName: String,
+  firstName: String,
 
-    lastName: String,
+  lastName: String,
 
-      email: {
-        type: String,
-        required: true,
-        unique: true,
-      },
+  email: {
+    type: String,
+    required: true,
+    unique: true,
+  },
 
-    password: {
-        type: String,
-        required: true
-    },
-    role: {
-        type: String,
-        enum : ['admin','enduser'],
-        default: 'admin'
-    }
+  password: {
+    type: String,
+    required: true
+  },
+  role: {
+    type: String,
+    enum: ['admin', 'enduser'],
+    default: 'admin'
+  }
+
+}, {
+  timestamps: true
 });
 
-const register= mongoose.model('Register', registeruser)
+
+let userschema = new mongoose.Schema({
+  usertype: {
+    type: String,
+    enum: ['donar', 'organisation', 'hospital', 'admin'],
+    default: 'admin'
+  },
+
+  name: {
+    type: String,
+    require: function () {
+      if (this.usertype !== 'admin' || this.usertype !== 'doner') {
+        return true;
+      }
+      return false;
+    }
+  },
+  hospitalName: {
+    type: String,
+    require: function () {
+      if (this.usertype == "hospital") {
+        return true;
+      }
+      return false;
+    }
+  },
+  organisationName: {
+    type: String,
+    require: function () {
+      if (this.usertype == "organisation") {
+        return true;
+      }
+      return false;
+    }
+  },
+  website: {
+    type: String,
+    require: function () {
+      if (this.usertype == "organisation"||this.usertype=="hospital") {
+        return true;
+      }
+      return false;
+    }
+  },
+  address: {
+    type: String,
+    require: function () {
+      if (this.usertype == "organisation"||this.usertype=="hospital") {
+        return true;
+      }
+      return false;
+    }
+  },
+
+  email: {
+    type: String,
+    required: true,
+    unique: true,
+  },
+
+  password: {
+    type: String,
+    required: true
+  },
+  phone: {
+    type: String,
+    required: true
+  },
+
+
+}, {
+  timestamps: true
+});
+
+
+
+
+const register = mongoose.model('Register', registeruser)
+const user = mongoose.model('User', userschema)
 
 exports.register = register;
+exports.user = user;
