@@ -28,7 +28,7 @@ let registeruser = new mongoose.Schema({
 
 
 let userschema = new mongoose.Schema({
-  usertype: {
+  role: {
     type: String,
     enum: ['donar', 'organisation', 'hospital', 'admin'],
     default: 'admin'
@@ -37,7 +37,7 @@ let userschema = new mongoose.Schema({
   name: {
     type: String,
     require: function () {
-      if (this.usertype !== 'admin' || this.usertype !== 'doner') {
+      if (this.role !== 'admin' || this.role !== 'doner') {
         return true;
       }
       return false;
@@ -46,7 +46,7 @@ let userschema = new mongoose.Schema({
   hospitalName: {
     type: String,
     require: function () {
-      if (this.usertype == "hospital") {
+      if (this.role === "hospital") {
         return true;
       }
       return false;
@@ -55,7 +55,7 @@ let userschema = new mongoose.Schema({
   organisationName: {
     type: String,
     require: function () {
-      if (this.usertype == "organisation") {
+      if (this.role ==="organisation") {
         return true;
       }
       return false;
@@ -64,7 +64,7 @@ let userschema = new mongoose.Schema({
   website: {
     type: String,
     require: function () {
-      if (this.usertype == "organisation"||this.usertype=="hospital") {
+      if (this.role == "organisation"||this.usertype=="hospital") {
         return true;
       }
       return false;
