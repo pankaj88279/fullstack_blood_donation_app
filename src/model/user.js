@@ -1,17 +1,16 @@
-const { mongoose } = require("../config/db");
+const {mongoose} = require("../config/db");
 
 
 let registeruser = new mongoose.Schema({
     firstName: String,
+
     lastName: String,
-    email: {
+
+      email: {
         type: String,
-        trim: true,
-        lowercase: true,
+        required: true,
         unique: true,
-        required: 'Email address is required',
-        match: [/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/, 'Please fill a valid email address']
-    },
+      },
 
     password: {
         type: String,
@@ -24,6 +23,6 @@ let registeruser = new mongoose.Schema({
     }
 });
 
-const user= mongoose.model('User', registeruser)
+const register= mongoose.model('Register', registeruser)
 
-exports.user = user
+exports.register = register;

@@ -1,10 +1,10 @@
-const mongoose = require('mongoose');
+const {mongoose }= require('mongoose');
 
 require('dotenv').config();
 
 //mongodb+srv://pankaj:pankaj@cluster0.4gb2s.mongodb.net/
 
-mongoose.connect(`mongodb+srv://${process.env.USER_NAME}:${process.env.PASS}@cluster0.4gb2s.mongodb.net/`)
+mongoose.connect('mongodb+srv://pankaj:pankaj@cluster0.4gb2s.mongodb.net/')
 .then(()=>{
     console.log('Connected to database')
 })

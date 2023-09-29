@@ -1,4 +1,4 @@
-const { user } = require("../model/user")
+const {register} = require("../model/user")
 const bcrypt = require('bcrypt');
 var jwt = require('jsonwebtoken');
 
@@ -7,7 +7,7 @@ let loginController = async (req, res) => {
     try {
 
         // Find the user by email in the database
-        const userobj = await user.findOne({ email });
+        const userobj = await register.findOne({ email });
 
         console.log('userobj --->', userobj)
         if (!userobj) {
