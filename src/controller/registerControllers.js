@@ -7,12 +7,11 @@ const bcrypt = require('bcrypt');
 let registerController = async (req, res) => {
   const exitinguser = await register.findOne({ email: req.body.email })
   if (exitinguser) {
-    console.log("Email already registeres"),
-    res.status(404).json({
-     
+  //  console.log("Email already registeres")
+    return res.status(404).json({
+      success:false,
       message: "Email already registeres"
     })
-    return false
   }
   const salt = 10;
   const hash = await bcrypt.hashSync(req.body.password, salt);
@@ -22,13 +21,13 @@ let registerController = async (req, res) => {
   userobj.save()
     .then((d) => {
       res.status(200).json({
-        msg: "registration  successfully",
+        msg: "User registration  successfully",
         data: d
       })
     })
     .catch((e) => {
       res.status(403).json({
-        msg: "registration not successfully",
+        msg: " User registration not successfully",
         err: e
       })
     })
