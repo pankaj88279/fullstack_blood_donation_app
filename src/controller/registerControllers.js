@@ -1,11 +1,11 @@
 const express = require('express')
 
-const { register } = require("../model/user")
+const { user } = require("../model/user")
 const bcrypt = require('bcrypt');
 
 
 let registerController = async (req, res) => {
-  const exitinguser = await register.findOne({ email: req.body.email })
+  const exitinguser = await user.findOne({ email: req.body.email })
   if (exitinguser) {
   //  console.log("Email already registeres")
     return res.status(404).json({
@@ -17,7 +17,7 @@ let registerController = async (req, res) => {
   const hash = await bcrypt.hashSync(req.body.password, salt);
 
   req.body.password = hash
-  const userobj = new register(req.body)
+  const userobj = new user(req.body)
   userobj.save()
     .then((d) => {
       res.status(200).json({

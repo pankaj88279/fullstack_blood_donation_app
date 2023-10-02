@@ -1,22 +1,23 @@
-var jwt = require('jsonwebtoken');
+var  JWT = require('jsonwebtoken');
 
-const auth = async (req, res, next) => {
-    try {
-        const token = req.headers['authorization'].spit(" ")[1]
+const authMiddle = async (req, res, next) => {
+    try {  
+        const token =await req.headers['authorization'].split(" ")[1]
         JWT.verify(token, process.env.TENANT,(err,decode)=>{
             if(err){
                 return res.status(404).json({
-                    message:"Authentication faild"
+                    message:"Authentication faild1"
                 })
             }else{
-               next();
+                req.body.userId =decode.userId
+                next();
+              
             }
 
         })
-    } catch (error) {
-        return res.stutes(401).json({
-            success: false,
-            message: "Authentication failes",
+    }catch{
+        return res.status(402).json({
+            message:"Authentication faild"
         })
     }
 }
@@ -35,3 +36,4 @@ let authAdmin = (req, res, next) => {
 
 
 exports.authAdmin = authAdmin
+exports.authMiddle =authMiddle 

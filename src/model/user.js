@@ -1,32 +1,6 @@
 const { mongoose } = require("../config/db");
 
 
-let registeruser = new mongoose.Schema({
-  firstName: String,
-
-  lastName: String,
-
-  email: {
-    type: String,
-    required: true,
-    unique: true,
-  },
-
-  password: {
-    type: String,
-    required: true
-  },
-  role: {
-    type: String,
-    enum: ['admin', 'enduser'],
-    default: 'admin'
-  }
-
-}, {
-  timestamps: true
-});
-
-
 let userschema = new mongoose.Schema({
   role: {
     type: String,
@@ -101,10 +75,7 @@ let userschema = new mongoose.Schema({
 });
 
 
-
-
-const register = mongoose.model('Register', registeruser)
 const user = mongoose.model('User', userschema)
 
-exports.register = register;
+
 exports.user = user;
